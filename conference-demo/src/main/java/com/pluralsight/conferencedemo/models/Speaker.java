@@ -3,8 +3,11 @@ package com.pluralsight.conferencedemo.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Type;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -39,6 +42,14 @@ public class Speaker {
     @ManyToMany(mappedBy = "speakers")
     @JsonIgnore
     private List<Session> sessions;
+
+    @Column(name = "created")
+    @CreatedDate
+    private Date created;
+
+    @Column(name = "created_by")
+    @CreatedBy
+    private String createdBy;
 
     public Speaker() {
     }
@@ -105,5 +116,21 @@ public class Speaker {
 
     public void setSpeakerBio(String speakerBio) {
         this.speakerBio = speakerBio;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 }
